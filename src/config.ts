@@ -1,0 +1,1 @@
+export const BACKEND_URL =" https://techieblog.raoankit0022.workers.dev"
