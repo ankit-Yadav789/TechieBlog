@@ -1,59 +1,87 @@
 import { Link } from "react-router-dom";
 
-interface BlogCardProps{
-    id:number;
-    authorname:string;
-    title:string;
-    content:string;
-    publishedDate:string;
+interface BlogCardProps {
+  id: number;
+  authorname: string;
+  title: string;
+  content: string;
+  publishedDate: string;
 }
 
- export const BlogCard = ({
-    id,
-    authorname,
-    title,
-    content,
-    publishedDate
+export const BlogCard = ({
+  id,
+  authorname,
+  title,
+  content,
+  publishedDate,
+}: BlogCardProps) => {
+  return (
+    <Link to={`/blog/${id}`} className="block">
+      <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200">
+        {/* Author and Date */}
+        <div className="flex items-center gap-4 p-4 bg-blue-50">
+          <Avatar size="small" name={authorname} />
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-gray-700">{authorname}</span>
+            <span className="text-xs text-gray-500">{publishedDate}</span>
+          </div>
+        </div>
 
- }:BlogCardProps) => {
-  return ( <Link to ={`/blog/${id}`}>
-    <div className="border-b border-slate-200 pb-4 pt-4 bg-sky-50 w-screen max-w-screen-md cursor-pointer">
-        <div className="flex">
-         
-         <Avatar size="small" name={authorname}/>
-         
-         <div className="font-extralight pl-2 text-sm flex justify-center flex-col">{authorname} </div>
-         <div className="flex justify-center flex-col pl-2">
-           <Circle/>
-          </div>
-          <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
-          {publishedDate}
+        {/* Title and Content */}
+        <div className="p-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-2">{title}</h2>
+          <p className="text-gray-600 mb-4">
+            {content.length > 100 ? `${content.slice(0, 100)}...` : content}
+          </p>
+          <div className="text-sm text-gray-500">
+            {`${Math.ceil(content.length / 100)} minute(s) read`}
           </div>
         </div>
-        <div className="text-xl font-semibold pt-2">
-            {title}
+
+        {/* Read More Button */}
+        <div className="p-4 bg-blue-100 text-center">
+          <span className="text-blue-500 font-medium hover:underline">
+            Read More
+          </span>
         </div>
-        <div className="text-md font-thin">
-            {content.slice(0,100) +"..."}
-        </div>
-        <div className="text-slate-500 text-sm font-thin pt-2">
-            {`${Math.ceil(content.length/100)} minute(s) read `}
-        </div>
-        
- </div>
- </Link>
-  )
+      </div>
+    </Link>
+  );
+};
+
+function Circle() {
+  return <div className="h-1 w-1 rounded-full bg-slate-500"></div>;
 }
 
-function Circle(){
-    return <div className="h-1 w-1 rounded-full bg-slate-500">
-
+export function Avatar({
+  name,
+  size = "small",
+}: {
+  name: string;
+  size: "small" | "big";
+}) {
+  return (
+    <div
+      className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full dark:bg-gray-600 ${
+        size === "small" ? "w-8 h-8" : "w-12 h-12"
+      }`}
+    >
+      <span
+        className={`${
+          size === "small" ? "text-sm" : "text-lg"
+        } font-semibold text-white`}
+      >
+        {name[0].toUpperCase()}
+      </span>
     </div>
+  );
 }
 
+export const getcurrentDate = () => {
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
 
- export function Avatar({ name,size = "small" } : {name: string,size:"small" |"big" }){
-    return <div className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full dark:bg-gray-600 ${size === "small" ?"w-6 h-6": "w-10 h-10"}`}>
-    <span className={`${size === "small" ? "text-xs" :"text-xl"} font-extralight text-gray-600 dark:text-gray-300`}>{name[0]}</span>
-</div>
-}
+  return `${day}-${month}-${year}`;
+};

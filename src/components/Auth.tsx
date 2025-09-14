@@ -51,7 +51,7 @@ import { BACKEND_URL } from "../config"
                     email:e.target.value
                   })
               } }/>    <LabelledInput label="Password" type ={"password"}placeholder="dfhdsh9354" onChange={(e) => {
-                setpostInputs({
+                setpostInputs({ 
                   ...postInputs,
                   password:e.target.value
                 })
