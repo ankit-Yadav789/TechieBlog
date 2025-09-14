@@ -2,7 +2,6 @@ import poster from '../assets/poster.png';
 import HomeNav from '../components/HomeNav';
 import { Link } from 'react-router-dom';
 import { FaRocket, FaCode, FaLightbulb, FaUsers, FaArrowRight, FaStar, FaHeart, FaBookOpen } from 'react-icons/fa';
-import { FeatureCardSkeleton } from '../components/Skeleton';
 
 const HomePage = () => {
   return (
